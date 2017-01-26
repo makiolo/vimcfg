@@ -1,0 +1,199 @@
+set nocompatible
+filetype off
+set rtp+=~/vimfiles/bundle/Vundle.vim
+" set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'L9'
+Plugin 'a.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'ervandew/supertab'
+Plugin 'fuzzyfinder'
+Plugin 'Shougo/neocomplete.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+" Plugin 'davidhalter/jedi-vim'
+Plugin 'tomtom/tcomment_vim'
+Plugin 'tyru/open-browser.vim'
+" Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'tpope/vim-speeddating'
+Plugin 'kshenoy/vim-signature'
+Plugin 'kien/ctrlp.vim'
+Plugin 'majutsushi/tagbar'
+Plugin 'tpope/vim-markdown'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-fugitive'
+Plugin 'thinca/vim-quickrun'
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/neosnippet.vim'
+Plugin 'Shougo/neosnippet-snippets'
+Plugin 'honza/vim-snippets'
+Plugin 'tomasr/molokai'
+Plugin 'justmao945/vim-clang'
+Plugin 'Shougo/neoinclude.vim'
+Plugin 'Shougo/vimshell.vim'
+" Plugin 'xolox/vim-easytags'
+Plugin 'xolox/vim-misc'
+Plugin 'elzr/vim-json'
+Plugin 'ivalkeen/nerdtree-execute'
+Plugin 'easymotion/vim-easymotion'
+call vundle#end()
+filetype plugin indent on
+
+" airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#show_tabs = 1
+" let g:airline#extensions#tabline#exclude_preview = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#show_close_button = 1
+if (has('gui_running') || has("unix"))
+	let g:airline_powerline_fonts = 1
+endif
+set laststatus=2		" show status bar
+
+" enable neocomplete
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#auto_completion_start_length = 999
+let g:neocomplete#enable_auto_select = 0
+" soluciona bug de indentacion
+let g:neocomplete#enable_auto_close_preview = 1
+let g:neocomplete#use_vimproc = 1
+
+" nerd (Ctrl-N)
+let NERDTreeChDirMode=0
+let g:NERDTreeBookmarksFile=expand("$HOME/.vim/.nerd_bookmarks")
+let g:NERDTreeShowBookmarks=1
+"let g:NERDTreeWinPos = "right"
+nmap <C-f> :NERDTreeFind<CR>
+imap <C-f> <Esc>:NERDTreeFind<CR>i
+nmap <C-n> :NERDTreeToggle<CR>
+imap <C-n> <Esc>:NERDTreeToggle<CR>i
+
+" unite
+nmap <F2> :Unite<CR>
+imap <F2> <Esc>:Unite<CR>i
+
+" fuzzyfinder
+nmap <F3> :FufFileWithFullCwd<CR>
+imap <F3> <Esc>:FufFileWithFullCwd<CR>i
+nmap <F4> :FufFileWithCurrentBufferDir<CR>
+imap <F4> <Esc>:FufFileWithCurrentBufferDir<CR>i
+
+" QuickRun
+nmap <F5> :QuickRun<CR>
+imap <F5> <Esc>:QuickRun<CR>i
+let g:quickrun_config = {}
+let g:quickrun_config.c = {'command' : 'gcc'}
+let g:quickrun_config.cpp = {'command' : 'g++'}
+
+" VimShell
+nmap <F6> :VimShell<CR><Esc>Go<CR>
+imap <F6> <Esc>:VimShell<CR><Esc>Go<CR>i
+
+" move tabs
+nmap <C-H> :bprev<CR>
+imap <C-H> <Esc>:bprev<CR>i
+nmap <C-L> :bnext<CR>
+imap <C-L> <Esc>:bnext<CR>i
+
+" jedi (no completation)
+let g:jedi#completions_enabled = 0
+let g:jedi#goto_command = "<F12>"
+let g:jedi#show_call_signatures = "2"
+
+" syntastic (F7)
+nmap <F7> :w<CR>:SyntasticCheck<CR>
+imap <F7> <Esc>:w<CR>:SyntasticCheck<CR>i
+let g:syntastic_mode_map = { "mode": "passive" }
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_stl_format = '[%E{Error: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_loc_list_height = 5
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args='--select=F,C9 --max-complexity=10'
+"let g:syntastic_quiet_messages = { "type": "style" }
+let g:syntastic_aggregate_errors = 1
+
+" ctrl p
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_max_files = 10000
+let g:ctrlp_working_path_mode = 0
+if executable('ag')
+	" Use Ag over Grep
+	set grepprg=ag\ --nogroup\ --nocolor
+	" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+	let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
+
+	" ag is fast enough that CtrlP doesn't need to cache
+	let g:ctrlp_use_caching = 0
+endif
+let g:ctrlp_max_depth = 40
+
+" tagbar
+nmap <F8> :w<CR>:TagbarToggle<CR>
+imap <F8> <Esc>:w<CR>:TagbarToggle<CR>i
+
+" neoinclude
+function! GetClangCompleteDirs()
+let cwd = getcwd()
+let current_dir = cwd.",".expand('%:p:h')."/../h".",".expand('%:p:h')
+return current_dir
+endfunction
+let g:neoinclude#paths = { 'cpp': GetClangCompleteDirs() }
+
+" clang
+let g:clang_dotfile = '.clang_complete'
+let g:clang_cpp_completeopt = 'longest,menuone'
+let g:clang_diagsopt = ''
+" only linux
+if has("unix")
+	let g:clang_exec = 'clang-3.6'
+	let g:clang_cpp_options = ' -std=c++14 '
+	let g:clang_compilation_database = './build/Debug'
+else
+	let g:clang_exec = 'clang'
+	let g:clang_cpp_options = ' -std=c++11 '
+	let g:clang_include_sysheaders_from_gcc = 0
+endif
+
+" vim-snippets
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+" SuperTab like snippets behavior.
+"imap <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+" vim.a (alternar entre h y cpp)
+let g:alternateNoDefaultAlternate = 1
+let g:alternateRelativeFiles = 1
+let g:alternateSearchPath = 'sfr:../h,sfr:../..,sfr:../source,sfr:../src,sfr:../include,sfr:../inc'
+nmap <F9> :A<CR>
+imap <F9> <Esc>:A<CR>i
+nmap <F12> :IH<CR>
+imap <F12> <Esc>:IH<CR>i
+
+" vim easytags
+" let g:easytags_include_members = 1
+" let g:easytags_auto_update = 1
+" let g:easytags_on_cursorhold = 1
+" let g:easytags_always_enabled = 1
+" let g:easytags_python_enabled = 0
+
