@@ -159,7 +159,7 @@ endif
 
 " theme dark
 if 1
-	" set guifont=Source\ Code\ Pro\ Light:h11
+	set guifont=Source\ Code\ Pro\ Light:h11
 	colorscheme molokai
 	let g:airline_theme="molokai"
 	set cursorline
