@@ -149,6 +149,20 @@ endif
 
 " ================ Appearance ========================
 
+if has('gui_running')
+	au GUIEnter * simalt ~x
+	if has("gui_running")
+		set lines=999 columns=999
+	endif
+endif
+
+if has("unix")
+	set encoding=utf-8
+	set term=xterm-256color
+	set t_Co=256
+	colorscheme molokai
+endif
+
 " theme white
 if 0
 	" set guifont=Consolas:h11
@@ -163,18 +177,5 @@ if 1
 	colorscheme molokai
 	let g:airline_theme="molokai"
 	set cursorline
-endif
-
-if has('gui_running')
-	au GUIEnter * simalt ~x
-	if has("gui_running")
-		set lines=999 columns=999
-	endif
-endif
-
-if has("unix")
-	set encoding=utf-8
-	set term=xterm-256color
-	set t_Co=256
 endif
 
