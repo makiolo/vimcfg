@@ -38,6 +38,7 @@ Plugin 'xolox/vim-misc'
 Plugin 'elzr/vim-json'
 Plugin 'ivalkeen/nerdtree-execute'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'schickling/vim-bufonly'
 call vundle#end()
 filetype plugin indent on
 
