@@ -68,11 +68,16 @@ let g:neocomplete#use_vimproc = 1
 let NERDTreeChDirMode=0
 let g:NERDTreeBookmarksFile=expand("$HOME/.vim/.nerd_bookmarks")
 let g:NERDTreeShowBookmarks=1
+let g:NERDTreeQuitOnOpen = 1
 "let g:NERDTreeWinPos = "right"
 nmap <C-f> :NERDTreeFind<CR>
 imap <C-f> <Esc>:NERDTreeFind<CR>i
-nmap <C-n> :NERDTreeToggle<CR>
-imap <C-n> <Esc>:NERDTreeToggle<CR>i
+nmap <C-n> :NERDTreeToggle<CR>:NERDTreeCWD<CR>
+imap <C-n> <Esc>:NERDTreeToggle<CR>:NERDTreeCWD<CR>i
+
+" close taps
+nmap <C-c> :bd<CR>
+imap <C-c> <Esc>:bd<CR>i
 
 " unite
 nmap <F2> :Unite<CR>
@@ -90,6 +95,8 @@ imap <F5> <Esc>:QuickRun<CR>i
 let g:quickrun_config = {}
 let g:quickrun_config.c = {'command' : 'gcc'}
 let g:quickrun_config.cpp = {'command' : 'g++'}
+" in about:config set set browser.link.open_newwindow=1
+let g:quickrun_config.xml = {'command' : '"C:\Program Files (x86)\Mozilla Firefox\firefox.exe"'}
 
 " VimShell
 nmap <F6> :VimShell<CR><Esc>Go<CR>
