@@ -72,8 +72,8 @@ let g:NERDTreeQuitOnOpen = 1
 "let g:NERDTreeWinPos = "right"
 nmap <C-f> :NERDTreeFind<CR>
 imap <C-f> <Esc>:NERDTreeFind<CR>i
-nmap <C-n> :NERDTreeToggle<CR>:NERDTreeCWD<CR>
-imap <C-n> <Esc>:NERDTreeToggle<CR>:NERDTreeCWD<CR>i
+nmap <C-n> :NERDTreeToggle<CR>:NERDTreeToggle<CR>
+imap <C-n> <Esc>:NERDTreeToggle<CR>:NERDTreeToggle<CR>i
 
 " close taps
 nmap <C-c> :bd<CR>
