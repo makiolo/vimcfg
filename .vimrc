@@ -29,6 +29,7 @@ syntax on
 " The mapleader has to be set before vundle starts loading all 
 " the plugins.
 let mapleader=","
+let g:mapleader=","
 
 " ================ Turn Off Swap Files ==============
 
@@ -73,9 +74,6 @@ set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
 set cino=N-sg0	 "Identation config ,no indent namespace
 
-" increase max lines copy, paste
-set viminfo='20,<1000,s1000
-
 " ================ Folds ============================
 
 set foldmethod=indent   "fold based on indent
@@ -115,9 +113,9 @@ set tabpagemax=1000								" max tabs
 set splitbelow									" open new files down
 
 " ================ Custom Settings ==================
-if has('mouse')
-	set mouse=a
-endif
+" if has('mouse')
+" 	set mouse=a
+" endif
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
@@ -178,4 +176,10 @@ if 1
 	let g:airline_theme="molokai"
 	set cursorline
 endif
+
+" fix paste in terminal
+set t_BE=
+
+" increase max lines copy, paste
+set viminfo='20,<1000,s1000
 
