@@ -8,3 +8,5 @@
 - cd ..
 - rmdir vimcfg
 - vim and execute ":PluginInstall"
+- cd .vim/bundle/vimproc.vim/
+- make
