@@ -7,6 +7,7 @@
 - mv .git/ ..
 - cd ..
 - rmdir vimcfg
+- (only in windows) rename ".vimrc" to "_vimrc"
 - vim and execute ":PluginInstall"
 - cd .vim/bundle/vimproc.vim/
 - make
