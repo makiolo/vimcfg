@@ -1,0 +1,176 @@
+snippet component
+/* Component class ${1:`vim_snippets#Filename('$1', 'name')`}
+*
+*  Ricardo Marmolejo García 2019
+*/
+#pragma once
+#ifndef _$1_H_
+#define _$1_H_
+
+#include <cocos2d.h>
+#include "entityx/entityx.h"
+
+namespace plague {
+
+struct $1 {
+	explicit $1()
+	{
+		
+	}
+};
+
+}
+
+#endif
+endsnippet
+
+snippet componentreceiver
+/* Component/Receiver class ${1:`vim_snippets#Filename('$1', 'name')`}
+*
+*  Ricardo Marmolejo García 2019
+*/
+#pragma once
+#ifndef _$1_H_
+#define _$1_H_
+
+#include <cocos2d.h>
+#include "entityx/entityx.h"
+#include "$2.h"
+
+namespace plague {
+
+struct $1 : public entityx::Receiver<$1> {
+	explicit $1(entityx::EventManager& events)
+	{
+		events.subscribe<plague::${2:EventExample}>(*this);
+	}
+
+	void receive(const plague::$2& event)
+	{
+		
+	}
+};
+
+}
+
+#endif
+endsnippet
+
+snippet system
+/* System class ${1:`vim_snippets#Filename('$1', 'name')`}
+*
+*  Ricardo Marmolejo García 2019
+*/
+#pragma once
+#ifndef _$1_H_
+#define _$1_H_
+
+#include <cocos2d.h>
+#include "entityx/entityx.h"
+
+namespace ${2:plague} {
+
+struct $1 : public entityx::System<$1>
+{
+	explicit $1()
+	{
+		
+	}
+
+	void configure(entityx::EntityManager& es, entityx::EventManager& events) override
+	{
+		
+	}
+
+	void update(entityx::EntityManager& es, entityx::EventManager& events, entityx::TimeDelta dt) override
+	{
+		
+	}
+};
+
+}
+
+#endif
+endsnippet
+
+snippet systemreceiver
+/* System/Receiver class ${1:`vim_snippets#Filename('$1', 'name')`}
+*
+*  Ricardo Marmolejo García 2019
+*/
+#pragma once
+#ifndef _$1_H_
+#define _$1_H_
+
+#include <cocos2d.h>
+#include "entityx/entityx.h"
+#include "$2.h"
+
+namespace plague {
+
+struct $1 : public entityx::System<$1>, public entityx::Receiver<$1>
+{
+	explicit $1()
+	{
+		
+	}
+
+	void configure(entityx::EntityManager& es, entityx::EventManager& events) override
+	{
+		events.subscribe<plague::${2:EventExample}>(*this);
+	}
+
+	void update(entityx::EntityManager& es, entityx::EventManager& events, entityx::TimeDelta dt) override
+	{
+		
+	}
+
+	void receive(const plague::$2& event)
+	{
+		
+	}
+};
+
+}
+
+#endif
+endsnippet
+
+snippet struct
+/* struct ${1:`vim_snippets#Filename('$1', 'name')`}
+*
+*  Ricardo Marmolejo García 2019
+*/
+#pragma once
+#ifndef _$1_H_
+#define _$1_H_
+
+#include <cocos2d.h>
+
+namespace plague {
+
+struct $1 {
+	explicit $1()
+	{
+		
+	}
+};
+
+}
+
+#endif
+endsnippet
+
+snippet sub
+events.subscribe<plague::${1:EventExample}>(*this);
+endsnippet
+
+snippet pub
+events.emit<plague::${1:EventExample}>();
+endsnippet
+
+snippet each
+es.each<plague::${1:Transform}>([=](entityx::Entity entity, plague::$1& component) {
+	
+});
+endsnippet

@@ -9,7 +9,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'ervandew/supertab'
 Plugin 'fuzzyfinder'
-Plugin 'Shougo/neocomplete.vim'
+" Plugin 'Shougo/neocomplete.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 " Plugin 'davidhalter/jedi-vim'
@@ -26,9 +26,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'thinca/vim-quickrun'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/vimproc.vim'
-Plugin 'Shougo/neosnippet.vim'
-Plugin 'Shougo/neosnippet-snippets'
-Plugin 'honza/vim-snippets'
 Plugin 'tomasr/molokai'
 " Plugin 'justmao945/vim-clang'
 " Plugin 'Shougo/neoinclude.vim'
@@ -44,6 +41,10 @@ Plugin 'tpope/vim-surround'
 " Plugin 'rdnetto/YCM-Generator'
 " Plugin 'nvie/vim-flake8'
 Plugin 'juneedahamed/vc.vim'
+Plugin 'SirVer/ultisnips'
+" Plugin 'Shougo/neosnippet.vim'
+" Plugin 'Shougo/neosnippet-snippets'
+Plugin 'honza/vim-snippets'
 call vundle#end()
 filetype plugin indent on
 
@@ -60,14 +61,13 @@ endif
 set laststatus=2		" show status bar
 
 " enable neocomplete
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#auto_completion_start_length = 999
-let g:neocomplete#enable_auto_select = 0
-" soluciona bug de indentacion
-let g:neocomplete#enable_auto_close_preview = 1
-let g:neocomplete#use_vimproc = 1
+" let g:neocomplete#enable_at_startup = 1
+" let g:neocomplete#enable_smart_case = 1
+" let g:neocomplete#sources#syntax#min_keyword_length = 3
+" let g:neocomplete#auto_completion_start_length = 999
+" let g:neocomplete#enable_auto_select = 0
+" let g:neocomplete#enable_auto_close_preview = 1
+" let g:neocomplete#use_vimproc = 1
 
 " nerd (Ctrl-N)
 let NERDTreeChDirMode=0
@@ -179,20 +179,13 @@ imap <F8> <Esc>:w<CR>:TagbarToggle<CR>i
 " endif
 " 
 
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-" vim-snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-k>     <Plug>(neosnippet_expand_target)
-
-
-" SuperTab like snippets behavior.
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-if has('conceal')
-	set conceallevel=2 concealcursor=niv
-endif
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 
 " vim.a (alternar entre h y cpp)
