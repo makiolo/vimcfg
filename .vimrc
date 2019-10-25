@@ -21,9 +21,6 @@ set viminfo='20,<1000,s1000		" max lines copy, paste
 " http://items.sjbach.com/319/configuring-vim-right
 set hidden
 
-"turn on syntax highlighting
-syntax on
-
 " Change leader to a comma because the backslash is too far away
 " That means all \x commands turn into ,x
 " The mapleader has to be set before vundle starts loading all 
@@ -62,6 +59,10 @@ autocmd Filetype python setlocal tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 filetype plugin on
 filetype indent on
 " autocmd FileType text setlocal textwidth=78				" For all text files set 'textwidth' to 78 characters.
+"
+
+"turn on syntax highlighting (after filetype)
+syntax on
 
 " Display tabs and trailing spaces visually
 
