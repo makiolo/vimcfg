@@ -12,7 +12,8 @@ snippet component
 
 namespace plague {
 
-struct $1 {
+struct $1 : entityx::Component<$1>
+{
 	explicit $1()
 	{
 		
@@ -39,8 +40,18 @@ snippet componentreceiver
 
 namespace plague {
 
-struct $1 : public entityx::Receiver<$1> {
-	explicit $1(entityx::EventManager& events)
+struct $1 : public entityx::Component<$1>, public entityx::Receiver<$1>
+{
+	explicit $1()
+	{
+	}
+
+	virtual ~$1()
+	{
+		
+	}
+
+	void configure_fw(entityx::EntityManager& es, entityx::EventManager& events)
 	{
 		events.subscribe<plague::${2:EventExample}>(*this);
 	}
@@ -73,6 +84,11 @@ namespace ${2:plague} {
 struct $1 : public entityx::System<$1>
 {
 	explicit $1()
+	{
+		
+	}
+
+	virtual ~$1()
 	{
 		
 	}
@@ -115,6 +131,11 @@ struct $1 : public entityx::System<$1>, public entityx::Receiver<$1>
 		
 	}
 
+	virtual ~$1()
+	{
+		
+	}
+
 	void configure(entityx::EntityManager& es, entityx::EventManager& events) override
 	{
 		events.subscribe<plague::${2:EventExample}>(*this);
@@ -136,7 +157,7 @@ struct $1 : public entityx::System<$1>, public entityx::Receiver<$1>
 #endif
 endsnippet
 
-snippet struct
+snippet event
 /* struct ${1:`vim_snippets#Filename('$1', 'name')`}
 *
 *  Ricardo Marmolejo García 2019
@@ -149,7 +170,8 @@ snippet struct
 
 namespace plague {
 
-struct $1 {
+struct $1 : public entityx::Event<$1>
+{
 	explicit $1()
 	{
 		
@@ -174,3 +196,4 @@ es.each<plague::${1:Transform}>([=](entityx::Entity entity, plague::$1& componen
 	
 });
 endsnippet
+

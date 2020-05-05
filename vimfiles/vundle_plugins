@@ -6,7 +6,7 @@ call vundle#begin()
 Plugin 'L9'
 Plugin 'a.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
 Plugin 'ervandew/supertab'
 Plugin 'fuzzyfinder'
 " Plugin 'Shougo/neocomplete.vim'
@@ -45,6 +45,8 @@ Plugin 'SirVer/ultisnips'
 " Plugin 'Shougo/neosnippet.vim'
 " Plugin 'Shougo/neosnippet-snippets'
 Plugin 'honza/vim-snippets'
+Plugin 'jvanja/vim-bootstrap4-snippets'
+Plugin 'vim-scripts/vim-auto-save'
 call vundle#end()
 filetype plugin indent on
 
@@ -100,7 +102,7 @@ imap <F5> <Esc>:QuickRun<CR>i
 let g:quickrun_config = {}
 let g:quickrun_config.c = {'command' : 'gcc'}
 let g:quickrun_config.cpp = {'command' : 'g++'}
-let g:quickrun_config.python = {'command' : 'python3'}
+let g:quickrun_config.python = {'command' : 'python'}
 " in about:config set set browser.link.open_newwindow=1
 let g:quickrun_config.xml = {'command' : '"C:\Program Files (x86)\Mozilla Firefox\firefox.exe"'}
 
@@ -213,4 +215,7 @@ imap <F9> <Esc>:A<CR>i
 nmap <F12> :YcmCompleter GoTo<CR>
 imap <F12> <Esc>:YcmCompleter GoTo<CR>i
 
+" autosave
+let g:auto_save = 1  " enable AutoSave on Vim startup
+let g:auto_save_silent = 1
 
