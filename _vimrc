@@ -67,7 +67,7 @@ filetype indent on
 
 "if has('gui_running')
 "	set list
-"	set listchars=tab:\ \ ,trail:·
+"	set listchars=tab:\ \ ,trail:Â·
 "endif
 
 set nowrap       "Don't wrap lines
@@ -184,7 +184,15 @@ set t_BE=
 " increase max lines copy, paste
 set viminfo='20,<1000,s1000
 
-" Python
-set pythonthreehome=C:\Users\makiolo\AppData\Local\Programs\Python\Python37\
-set pythonthreedll=C:\Users\makiolo\AppData\Local\Programs\Python\Python37\python37.dll
+" Python 3
+" set pythonthreehome=C:\Users\makiolo\AppData\Local\Programs\Python\Python37\
+" set pythonthreedll=C:\Users\makiolo\AppData\Local\Programs\Python\Python37\python37.dll
+" Python 2
+set pythonthreehome="C:\Program Files\Anaconda"
+set pythonthreedll="C:\Program Files\Anaconda\python27.dll"
+" other fixs
+let g:jedi#force_py_version = 2
+let g:UltisnipsUsePythonVersion = 2
+let g:conda_startup_msg_suppress = 1
 
+cd c:\Mercury\
