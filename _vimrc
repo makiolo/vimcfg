@@ -66,8 +66,8 @@ filetype indent on
 " Display tabs and trailing spaces visually
 
 "if has('gui_running')
-"	set list
-"	set listchars=tab:\ \ ,trail:·
+"    gui_runningset list
+"    set listchars=tab:\ \ ,trail:·
 "endif
 
 set nowrap       "Don't wrap lines
@@ -171,11 +171,13 @@ endif
 
 " theme dark
 if 1
-	" set guifont=Source\ Code\ Pro\ Light:h11
-	set guifont=Consolas:h11
+	set guifont=Source\ Code\ Pro\ Light:h11
+	" set guifont=Consolas:h11
 	colorscheme molokai
 	let g:airline_theme="molokai"
-	set cursorline
+	if has('gui_running')
+		set cursorline
+	endif
 endif
 
 " fix paste in terminal
@@ -184,14 +186,11 @@ set t_BE=
 " increase max lines copy, paste
 set viminfo='20,<1000,s1000
 
-" Python 3
-" set pythonthreehome=C:\Users\makiolo\AppData\Local\Programs\Python\Python37\
-" set pythonthreedll=C:\Users\makiolo\AppData\Local\Programs\Python\Python37\python37.dll
-" Python 2
-set pythonthreehome="C:\Program Files\Anaconda"
-set pythonthreedll="C:\Program Files\Anaconda\python27.dll"
-" other fixs
+" Python
+set pythonthreehome="C:\\Program Files\\Anaconda"
+set pythonthreedll="C:\\Program Files\\Anaconda\\python27.dll"
 let g:jedi#force_py_version = 2
+let g:UltiSnipsSnippetDirectories = ['.vim/UltiSnips', 'UltiSnips']
 let g:UltisnipsUsePythonVersion = 2
 let g:conda_startup_msg_suppress = 1
 
