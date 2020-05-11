@@ -67,8 +67,8 @@ syntax on
 " Display tabs and trailing spaces visually
 
 "if has('gui_running')
-"	set list
-"	set listchars=tab:\ \ ,trail:·
+"	  set list
+"	  set listchars=tab:\ \ ,trail:Â·
 "endif
 
 set nowrap       "Don't wrap lines
