@@ -6,13 +6,13 @@ call vundle#begin()
 Plugin 'L9'
 Plugin 'a.vim'
 Plugin 'scrooloose/nerdtree'
-" Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 Plugin 'ervandew/supertab'
-Plugin 'fuzzyfinder'
+" Plugin 'fuzzyfinder'
 " Plugin 'Shougo/neocomplete.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-" Plugin 'davidhalter/jedi-vim'
+Plugin 'davidhalter/jedi-vim'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'tyru/open-browser.vim'
 " Plugin 'bronson/vim-trailing-whitespace'
@@ -22,9 +22,9 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-fugitive'
+"Plugin 'tpope/vim-fugitive'
 Plugin 'thinca/vim-quickrun'
-Plugin 'Shougo/unite.vim'
+" Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'tomasr/molokai'
 " Plugin 'justmao945/vim-clang'
@@ -37,16 +37,23 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'schickling/vim-bufonly'
 Plugin 'sk1418/Join'
 Plugin 'tpope/vim-surround'
-" Plugin 'Valloric/YouCompleteMe'
-" Plugin 'rdnetto/YCM-Generator'
+if has("unix")
+	" Pycharm mode
+	Plugin 'Valloric/YouCompleteMe'
+	Plugin 'rdnetto/YCM-Generator'
+	Plugin 'vim-scripts/vim-auto-save'
+	Plugin 'SirVer/ultisnips'
+endif
+
 " Plugin 'nvie/vim-flake8'
 Plugin 'juneedahamed/vc.vim'
-Plugin 'SirVer/ultisnips'
 " Plugin 'Shougo/neosnippet.vim'
 " Plugin 'Shougo/neosnippet-snippets'
 Plugin 'honza/vim-snippets'
-Plugin 'jvanja/vim-bootstrap4-snippets'
-Plugin 'vim-scripts/vim-auto-save'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+Plugin 'stefandtw/quickfix-reflector.vim'
+Plugin 'lilydjwg/colorizer'
 call vundle#end()
 filetype plugin indent on
 
@@ -57,10 +64,39 @@ let g:airline#extensions#tabline#show_tabs = 1
 " let g:airline#extensions#tabline#exclude_preview = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_close_button = 1
-if (has('gui_running') || has("unix"))
-	let g:airline_powerline_fonts = 1
-endif
+" if (has('gui_running') || has("unix"))
+" 	let g:airline_powerline_fonts = 1
+" endif
 set laststatus=2		" show status bar
+" air-line
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+" let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+" let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+" let g:airline_symbols.linenr = '␊'
+" let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+" let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+" let g:airline_symbols.paste = 'Þ'
+" let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
 
 " enable neocomplete
 " let g:neocomplete#enable_at_startup = 1
@@ -76,9 +112,10 @@ let NERDTreeChDirMode=0
 let g:NERDTreeBookmarksFile=expand("$HOME/.vim/.nerd_bookmarks")
 let g:NERDTreeShowBookmarks=1
 let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeIgnore = ['.pyc$']
 " let g:NERDTreeWinPos = "right"
-nmap <C-f> :NERDTreeFind<CR>
-imap <C-f> <Esc>:NERDTreeFind<CR>i
+nmap <F4> :NERDTreeFind<CR>
+imap <F4> <Esc>:NERDTreeFind<CR>i
 nmap <C-n> :NERDTreeToggle<CR>
 imap <C-n> <Esc>:NERDTreeToggle<CR>i
 
@@ -86,15 +123,17 @@ imap <C-n> <Esc>:NERDTreeToggle<CR>i
 nmap <C-c> :bd<CR>
 imap <C-c> <Esc>:bd<CR>i
 
-" unite
-nmap <F2> :Unite<CR>
-imap <F2> <Esc>:Unite<CR>i
+" folding
+nmap <F2> zRzmzm<CR>
+imap <F2> <Esc>zRzmzm<CR>i
+nmap <F3> zR<CR>
+imap <F3> <Esc>zR<CR>i
 
 " fuzzyfinder
-nmap <F3> :FufFileWithFullCwd<CR>
-imap <F3> <Esc>:FufFileWithFullCwd<CR>i
-nmap <F4> :FufFileWithCurrentBufferDir<CR>
-imap <F4> <Esc>:FufFileWithCurrentBufferDir<CR>i
+" nmap <F3> :FufFileWithFullCwd<CR>
+" imap <F3> <Esc>:FufFileWithFullCwd<CR>i
+" nmap <F4> :FufFileWithCurrentBufferDir<CR>
+" imap <F4> <Esc>:FufFileWithCurrentBufferDir<CR>i
 
 " QuickRun
 nmap <F5> :QuickRun<CR>
@@ -106,9 +145,10 @@ let g:quickrun_config.python = {'command' : 'python'}
 " in about:config set set browser.link.open_newwindow=1
 let g:quickrun_config.xml = {'command' : '"C:\Program Files (x86)\Mozilla Firefox\firefox.exe"'}
 
-" VimShell
-nmap <F6> :VimShell<CR><Esc>Go<CR>
-imap <F6> <Esc>:VimShell<CR><Esc>Go<CR>i
+nmap <F7> :silent !"C:\Mercury\ExcelKill.cmd"<CR>:QuickRun<CR>
+imap <F7> <Esc>:silent !"C:\Mercury\ExcelKill.cmd"<CR>:QuickRun<CR>i
+nmap <F8> :silent !"C:\Mercury\ExcelOnce.cmd"<CR>
+imap <F8> <Esc>:silent !"C:\Mercury\ExcelOnce.cmd"<CR>i
 
 " move tabs
 nmap <C-H> :bprev<CR>
@@ -117,14 +157,16 @@ nmap <C-L> :bnext<CR>
 imap <C-L> <Esc>:bnext<CR>i
 
 " jedi (no completation)
-let g:jedi#completions_enabled = 1
+let g:jedi#auto_initialization = 1
+let g:jedi#popup_on_dot = 0
+let g:jedi#completions_enabled = 0
 let g:jedi#goto_command = "<F12>"
 let g:jedi#show_call_signatures = "2"
 
-" syntastic (F7)
-nmap <F7> :w<CR>:SyntasticCheck<CR>
-imap <F7> <Esc>:w<CR>:SyntasticCheck<CR>i
-let g:syntastic_python_flake8_exe='python3 -m flake8'
+" syntastic (F6)
+nmap <F6> :w<CR>:SyntasticCheck<CR>
+imap <F6> <Esc>:w<CR>:SyntasticCheck<CR>i
+let g:syntastic_python_flake8_exe='python -m flake8'
 let g:syntastic_mode_map = { "mode": "passive" }
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -136,27 +178,58 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_loc_list_height = 5
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args='--select=F,C9 --max-complexity=10'
-"let g:syntastic_quiet_messages = { "type": "style" }
+let g:syntastic_quiet_messages = { "type": "style" }
 let g:syntastic_aggregate_errors = 1
 
 " ctrl p
 let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_max_files = 10000
+" let g:ctrlp_max_files = 10000
 let g:ctrlp_working_path_mode = 0
 if executable('ag')
-	" Use Ag over Grep
 	set grepprg=ag\ --nogroup\ --nocolor
-	" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
 	let g:ctrlp_user_command = 'ag -l --nocolor -g "" %s'
-
-	" ag is fast enough that CtrlP doesn't need to cache
 	let g:ctrlp_use_caching = 0
 endif
-let g:ctrlp_max_depth = 40
+if executable('rg')
+	set grepprg=rg\ --color=never
+	let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+	let g:ctrlp_use_caching = 0
+endif
+set wildignore+=*/.git/*,*/tmp/*,*.swp
+" Grep ctrlP
 
-" tagbar
-nmap <F8> :w<CR>:TagbarToggle<CR>
-imap <F8> <Esc>:w<CR>:TagbarToggle<CR>i
+function! RipgrepFzfPython(query, fullscreen, type)
+	let command_fmt = 'rg --type='.a:type.' --column --line-number --no-heading --color=never --case-sensitive "%s"'
+	let initial_command = printf(command_fmt, a:query)
+	let reload_command = printf(command_fmt, a:query)
+	let spec = {'options': ['--layout=reverse', '--info=inline', '+i', '--bind', 'change:reload:'.reload_command, '--query', a:query]}
+	" let spec = {'options': ['--layout=reverse', '--info=inline', '+i', '--bind', 'change:reload:'.reload_command, '--preview', 'echo {} | cut -d: -f1 | cut -c2- | xargs echo grep -n -C 9 "'.a:query.'" ', '--query', a:query]}
+	call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
+endfunction
+command! -nargs=* -bang RgPython call RipgrepFzfPython(<q-args>, <bang>0, 'py')
+command! -nargs=* -bang RgCpp call RipgrepFzfPython(<q-args>, <bang>0, 'cpp')
+command! -nargs=* -bang RgTxt call RipgrepFzfPython(<q-args>, <bang>0, 'txt')
+command! -nargs=* -bang RgSh call RipgrepFzfPython(<q-args>, <bang>0, 'sh')
+
+function! RipgrepFzfPythonWhole(query, fullscreen, type)
+	let command_fmt = 'rg --type='.a:type.' -w --column --line-number --no-heading --color=never --case-sensitive "%s"'
+	let initial_command = printf(command_fmt, a:query)
+	let reload_command = printf(command_fmt, a:query)
+	let spec = {'options': ['--layout=reverse', '--info=inline', '+i', '--bind', 'change:reload:'.reload_command, '--query', a:query]}
+	" let spec = {'options': ['--layout=reverse', '--info=inline', '+i', '--bind', 'change:reload:'.reload_command, '--preview', 'echo {} | cut -d":" -f1 | cut -c2- | xargs head -n20', '--query', a:query]}
+	call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
+endfunction
+command! -nargs=* -bang RgPythonWhole call RipgrepFzfPythonWhole(<q-args>, <bang>0, 'py')
+command! -nargs=* -bang RgCppWhole call RipgrepFzfPythonWhole(<q-args>, <bang>0, 'cpp')
+command! -nargs=* -bang RgTxtWhole call RipgrepFzfPythonWhole(<q-args>, <bang>0, 'txt')
+command! -nargs=* -bang RgShWhole call RipgrepFzfPythonWhole(<q-args>, <bang>0, 'sh')
+
+nmap <C-f> :Files<CR>
+imap <C-f> <Esc>:Files<CR>i
+nmap <A-g> :RgPythonWhole <c-r>=expand("<cword>")<CR><CR>
+imap <A-g> <Esc>:RgPythonWhole <c-r>=expand("<cword>")<CR><CR>i
+" nmap <C-g> :RgPython<CR>
+" imap <C-g> <Esc>:RgPython<CR>i
 
 " neoinclude
 " function! GetClangCompleteDirs()
@@ -182,7 +255,7 @@ imap <F8> <Esc>:w<CR>:TagbarToggle<CR>i
 " 
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<c-k>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
@@ -196,26 +269,61 @@ let g:alternateRelativeFiles = 1
 let g:alternateSearchPath = 'sfr:../h,sfr:../..,sfr:../source,sfr:../src,sfr:../include,sfr:../inc'
 nmap <F9> :A<CR>
 imap <F9> <Esc>:A<CR>i
-" nmap <F12> :IH<CR>
-" imap <F12> <Esc>:IH<CR>i
+nmap <F10> :IH<CR>
+imap <F10> <Esc>:IH<CR>i
 
 
 " " yourcompleteme
-" let g:ycm_complete_in_comments=1
-" let g:ycm_confirm_extra_conf=0
-" let g:ycm_collect_identifiers_from_tags_files=1
-" set completeopt-=preview
-" let g:ycm_min_num_of_chars_for_completion=1
-" let g:ycm_cache_omnifunc=0
-" let g:ycm_seed_identifiers_with_syntax=1
-" let g:ycm_python_binary_path = '/usr/bin/python3'
-" " let g:ycm_python_binary_path = 'python'
+let g:ycm_complete_in_comments=1
+let g:ycm_confirm_extra_conf=0
+let g:ycm_collect_identifiers_from_tags_files=1
+set completeopt-=preview
+let g:ycm_min_num_of_chars_for_completion=1
+let g:ycm_cache_omnifunc=0
+let g:ycm_seed_identifiers_with_syntax=1
+if has("unix")
+	let g:ycm_python_binary_path = '/usr/bin/python3'
+else
+	let g:ycm_python_binary_path = 'python'
+endif
 
 
 nmap <F12> :YcmCompleter GoTo<CR>
 imap <F12> <Esc>:YcmCompleter GoTo<CR>i
 
+
 " autosave
 let g:auto_save = 1  " enable AutoSave on Vim startup
 let g:auto_save_silent = 1
+
+
+" easymotion
+" nmap <C-g> <Plug>(easymotion-prefix)
+" imap <C-g> <Esc><Plug>(easymotion-prefix)<CR>i
+
+" Gif config
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+
+" <Leader>f{char} to move to {char}
+"map  <Leader>f <Plug>(easymotion-bd-f)
+"nmap <Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+"nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+" map <Leader>L <Plug>(easymotion-bd-jk)
+" nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+" Move to word
+imap <c-g> <Esc><Plug>(easymotion-bd-w)<CR>i
+nmap <c-g> <Plug>(easymotion-overwin-w)
+
 
