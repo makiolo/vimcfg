@@ -1,8 +1,10 @@
 snippet component
-/* Component class ${1:`vim_snippets#Filename('$1', 'name')`}
-*
-*  Ricardo Marmolejo García 2019
-*/
+// Component class ${1:`vim_snippets#Filename('$1', 'name')`}
+//
+// Ricardo Marmolejo García 2020
+//
+// use: 
+//
 #pragma once
 #ifndef _$1_H_
 #define _$1_H_
@@ -12,7 +14,7 @@ snippet component
 
 namespace plague {
 
-struct $1 : entityx::Component<$1>
+struct $1 : public entityx::Component<$1>
 {
 	explicit $1()
 	{
@@ -25,11 +27,76 @@ struct $1 : entityx::Component<$1>
 #endif
 endsnippet
 
+snippet cocoscomponent
+// Component class ${1:`vim_snippets#Filename('$1Component', 'name')`}Component
+//
+// Ricardo Marmolejo García 2020
+//
+// use: 
+//
+#pragma once
+#ifndef _$1Compomnent_H_
+#define _$1Compomnent_H_
+
+#include <cocos2d.h>
+#include "entityx/entityx.h"
+#include "Transform.h"
+#include "SceneComponent.h"
+
+namespace plague {
+
+struct $1Compomnent : public entityx::Component<$1Compomnent>
+{
+	explicit $1Compomnent(const std::string& filename)
+		: node(cocos2d::$1::create(filename))
+		, configured(false)
+	{
+		node->retain();
+	}
+
+	~$1Compomnent()
+	{
+		node->removeFromParent();
+		node->release();
+	}
+
+	cocos2d::$1* get() const
+	{
+		return node;
+	}
+
+	void reset()
+	{
+		
+	}
+
+	void configure_fw(entityx::EntityManager& es, entityx::EventManager& events, plague::Transform& transform, plague::SceneComponent& scene)
+	{
+		if(!configured)
+		{
+			transform.configure_fw(es, events, scene);
+			reset();
+			transform.get()->addChild(node);
+			configured = true;
+		}
+	}
+
+	cocos2d::$1* node;
+	bool configured;
+};
+
+}
+
+#endif
+endsnippet
+
 snippet componentreceiver
-/* Component/Receiver class ${1:`vim_snippets#Filename('$1', 'name')`}
-*
-*  Ricardo Marmolejo García 2019
-*/
+// Component/Receiver class ${1:`vim_snippets#Filename('$1', 'name')`}
+//
+// Ricardo Marmolejo García 2019
+//
+// use: 
+//
 #pragma once
 #ifndef _$1_H_
 #define _$1_H_
@@ -68,10 +135,12 @@ struct $1 : public entityx::Component<$1>, public entityx::Receiver<$1>
 endsnippet
 
 snippet system
-/* System class ${1:`vim_snippets#Filename('$1', 'name')`}
-*
-*  Ricardo Marmolejo García 2019
-*/
+// System class ${1:`vim_snippets#Filename('$1', 'name')`}
+//
+// Ricardo Marmolejo García 2019
+//
+// use: 
+//
 #pragma once
 #ifndef _$1_H_
 #define _$1_H_
@@ -110,10 +179,12 @@ struct $1 : public entityx::System<$1>
 endsnippet
 
 snippet systemreceiver
-/* System/Receiver class ${1:`vim_snippets#Filename('$1', 'name')`}
-*
-*  Ricardo Marmolejo García 2019
-*/
+// System/Receiver class ${1:`vim_snippets#Filename('$1', 'name')`}
+//
+// Ricardo Marmolejo García 2019
+//
+// use: 
+//
 #pragma once
 #ifndef _$1_H_
 #define _$1_H_
@@ -158,15 +229,18 @@ struct $1 : public entityx::System<$1>, public entityx::Receiver<$1>
 endsnippet
 
 snippet event
-/* struct ${1:`vim_snippets#Filename('$1', 'name')`}
-*
-*  Ricardo Marmolejo García 2019
-*/
+// struct ${1:`vim_snippets#Filename('$1', 'name')`}
+//
+// Ricardo Marmolejo García 2019
+//
+// use: 
+//
 #pragma once
 #ifndef _$1_H_
 #define _$1_H_
 
 #include <cocos2d.h>
+#include "entityx/entityx.h"
 
 namespace plague {
 
@@ -192,7 +266,7 @@ events.emit<plague::${1:EventExample}>();
 endsnippet
 
 snippet each
-es.each<plague::${1:Transform}>([=](entityx::Entity entity, plague::$1& component) {
+es.each<plague::Transform>([&](entityx::Entity entity, plague::Transform& transform) {
 	
 });
 endsnippet

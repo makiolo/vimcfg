@@ -184,3 +184,8 @@ set t_BE=
 " increase max lines copy, paste
 set viminfo='20,<1000,s1000
 
+
+if filereadable("/home/ricardomg/dev/plague-defense/Classes")
+	cd /home/ricardomg/dev/plague-defense/Classes
+endif
+

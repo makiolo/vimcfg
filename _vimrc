@@ -194,4 +194,7 @@ let g:UltiSnipsSnippetDirectories = ['.vim/UltiSnips', 'UltiSnips']
 let g:UltisnipsUsePythonVersion = 2
 let g:conda_startup_msg_suppress = 1
 
-cd c:\Mercury\
+if filereadable("C:\\Mercury")
+	cd c:\\Mercury
+endif
+
