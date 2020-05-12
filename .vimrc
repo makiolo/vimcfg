@@ -185,7 +185,7 @@ set t_BE=
 set viminfo='20,<1000,s1000
 
 
-if filereadable("/home/ricardomg/dev/plague-defense/Classes")
+if isdirectory("/home/ricardomg/dev/plague-defense/Classes")
 	cd /home/ricardomg/dev/plague-defense/Classes
 endif
 
