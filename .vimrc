@@ -178,6 +178,7 @@ if 1
 	set cursorline
 endif
 
+
 " fix paste in terminal
 set t_BE=
 
